@@ -1,0 +1,18 @@
+{
+  "customers": [
+    {
+      "id": "1",
+      "firstName": "Margol",
+      "lastName": "Tzanaani",
+      "phone": "0544632501",
+      "email": "margol@gmail.com"
+    },
+    {
+      "id": "2",
+      "firstName": "Sarit",
+      "lastName": "Hadad",
+      "phone": "0547632525",
+      "email": "sarit@gmail.com"
+    }
+  ]
+}
