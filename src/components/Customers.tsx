@@ -1,12 +1,17 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import Customer from "../interfaces/Customer";
-import { getAllCustomers } from "../services/customersService";
+import {
+  deleteCustomerById,
+  getAllCustomers,
+} from "../services/customersService";
 import { Link } from "react-router-dom";
 
 interface CustomersProps {}
 
 const Customers: FunctionComponent<CustomersProps> = () => {
   const [customersArr, setCustomersArr] = useState<Customer[]>([]);
+  const [customersChanged, setCustomerChanged] = useState<boolean>(false);
+
   useEffect(() => {
     getAllCustomers()
       .then((res) => {
@@ -14,7 +19,7 @@ const Customers: FunctionComponent<CustomersProps> = () => {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [customersChanged]);
 
   return (
     <>
@@ -34,6 +39,8 @@ const Customers: FunctionComponent<CustomersProps> = () => {
                 <th>Last Name</th>
                 <th>Phone</th>
                 <th>Email</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -44,6 +51,23 @@ const Customers: FunctionComponent<CustomersProps> = () => {
                   <td>{customer.lastName}</td>
                   <td>{customer.phone}</td>
                   <td>{customer.email}</td>
+                  <td>
+                    <i className="fa-solid fa-user-pen text-warning"></i>
+                  </td>
+                  <td>
+                    <i
+                      className="fa-solid fa-user-xmark text-danger"
+                      onClick={() => {
+                        if (window.confirm("Are you sure?")) {
+                          deleteCustomerById(customer.id as string)
+                            .then(() => {
+                              setCustomerChanged(!customersChanged);
+                            })
+                            .catch((err) => console.log(err));
+                        }
+                      }}
+                    ></i>
+                  </td>
                 </tr>
               ))}
             </tbody>

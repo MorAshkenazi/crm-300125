@@ -1,10 +1,13 @@
 import { useFormik } from "formik";
 import { FunctionComponent } from "react";
 import * as yup from "yup";
+import { addNewCustomer } from "../services/customersService";
+import { useNavigate } from "react-router-dom";
 
 interface NewCustomerProps {}
 
 const NewCustomer: FunctionComponent<NewCustomerProps> = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { firstName: "", lastName: "", phone: "", email: "" },
     validationSchema: yup.object({
@@ -20,7 +23,9 @@ const NewCustomer: FunctionComponent<NewCustomerProps> = () => {
       email: yup.string().required().email().min(4),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      addNewCustomer(values)
+        .then(() => navigate("/"))
+        .catch((err) => console.log(err));
     },
   });
   return (
@@ -96,12 +101,19 @@ const NewCustomer: FunctionComponent<NewCustomerProps> = () => {
             )}
           </div>
           <button
+            type="submit"
             className="btn btn-success w-100"
             disabled={!formik.isValid || !formik.dirty}
           >
-            Add
+            <i className="fa-solid fa-user-plus"></i>
           </button>
         </form>
+        <button
+          className="btn btn-secondary mt-3"
+          onClick={() => navigate("/")}
+        >
+          Back
+        </button>
       </div>
     </>
   );
