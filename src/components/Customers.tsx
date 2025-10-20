@@ -4,11 +4,12 @@ import {
   deleteCustomerById,
   getAllCustomers,
 } from "../services/customersService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface CustomersProps {}
 
 const Customers: FunctionComponent<CustomersProps> = () => {
+  const navigate = useNavigate();
   const [customersArr, setCustomersArr] = useState<Customer[]>([]);
   const [customersChanged, setCustomerChanged] = useState<boolean>(false);
 
@@ -52,7 +53,12 @@ const Customers: FunctionComponent<CustomersProps> = () => {
                   <td>{customer.phone}</td>
                   <td>{customer.email}</td>
                   <td>
-                    <i className="fa-solid fa-user-pen text-warning"></i>
+                    <i
+                      className="fa-solid fa-user-pen text-warning"
+                      onClick={() => {
+                        navigate(`/update-customer/${customer.id}`);
+                      }}
+                    ></i>
                   </td>
                   <td>
                     <i

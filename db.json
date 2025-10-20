@@ -1,11 +1,11 @@
 {
   "customers": [
     {
-      "id": "1",
       "firstName": "Margol",
-      "lastName": "Tzanaani",
+      "lastName": "Levy",
       "phone": "0544632501",
-      "email": "margol@gmail.com"
+      "email": "margol@gmail.com",
+      "id": "1"
     },
     {
       "id": "2",
