@@ -3,6 +3,7 @@ import { FunctionComponent } from "react";
 import * as yup from "yup";
 import { addNewCustomer } from "../services/customersService";
 import { useNavigate } from "react-router-dom";
+import { errorMsg, successMsg } from "../services/feedbacksService";
 
 interface NewCustomerProps {}
 
@@ -24,8 +25,14 @@ const NewCustomer: FunctionComponent<NewCustomerProps> = () => {
     }),
     onSubmit: (values) => {
       addNewCustomer(values)
-        .then(() => navigate("/"))
-        .catch((err) => console.log(err));
+        .then(() => {
+          navigate("/");
+          successMsg("Customer was added succesfully!");
+        })
+        .catch((err) => {
+          console.log(err);
+          errorMsg("Ooops...something went wrong. Try again!");
+        });
     },
   });
   return (

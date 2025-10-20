@@ -5,6 +5,7 @@ import {
   getAllCustomers,
 } from "../services/customersService";
 import { Link, useNavigate } from "react-router-dom";
+import { errorMsg, successMsg } from "../services/feedbacksService";
 
 interface CustomersProps {}
 
@@ -68,8 +69,14 @@ const Customers: FunctionComponent<CustomersProps> = () => {
                           deleteCustomerById(customer.id as string)
                             .then(() => {
                               setCustomerChanged(!customersChanged);
+                              successMsg("Customer was deleted successfully!");
                             })
-                            .catch((err) => console.log(err));
+                            .catch((err) => {
+                              console.log(err);
+                              errorMsg(
+                                "Ooops...something went wrong. Try again!"
+                              );
+                            });
                         }
                       }}
                     ></i>

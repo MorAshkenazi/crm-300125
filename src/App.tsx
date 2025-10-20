@@ -5,11 +5,13 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Customers from "./components/Customers";
 import NewCustomer from "./components/NewCustomer";
 import UpdateCustomer from "./components/UpdateCustomer";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Customers />} />
           <Route path="/add-customer" element={<NewCustomer />} />

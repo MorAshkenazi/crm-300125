@@ -7,6 +7,7 @@ import {
   updateCustomerById,
 } from "../services/customersService";
 import Customer from "../interfaces/Customer";
+import { errorMsg, successMsg } from "../services/feedbacksService";
 
 interface UpdateCustomerProps {}
 
@@ -48,8 +49,14 @@ const UpdateCustomer: FunctionComponent<UpdateCustomerProps> = () => {
     }),
     onSubmit: (values) => {
       updateCustomerById(id as string, values)
-        .then(() => navigate("/"))
-        .catch((err) => console.log(err));
+        .then(() => {
+          navigate("/");
+          successMsg("Customer was updated successfully!");
+        })
+        .catch((err) => {
+          console.log(err);
+          errorMsg("Ooops...something went wrong. Try again!");
+        });
     },
   });
   return (
